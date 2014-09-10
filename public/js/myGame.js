@@ -1,105 +1,37 @@
+var myWidth = 1200, myHeight = 720
+var scene, camera, renderer;
+var geometry, material, mesh;
+
 $( document ).ready(function() {
-	$('#myGame').attr({width:1200,height:720});
-	start();
+	$('#myGame').attr({width:myWidth,height:myHeight});
+
+	init();
+	animate();
 });
 
+function init(){
+	scene = new THREE.Scene();
+	
+	camera = new THREE.PerspectiveCamera( 75, myWidth / myHeight, 1, 10000 );
+	camera.position.z = 1000;
 
-var gl; // A global variable for the WebGL context
+	geometry = new THREE.BoxGeometry( 200, 200, 200 );
+	material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
 
-function start() {
-	var pos;
-	//Create moon
-	var moon = new PhiloGL.O3D.Sphere({
-		nlat: 30,
-		nlong: 30,
-		radius: 2,
-		textures: 'img/keepertexture.png'
-	});
+	mesh = new THREE.Mesh( geometry, material );
+	scene.add( mesh );
 
-	//Create application
-	PhiloGL('myGame', {
-		camera: {
-			position: {
-			x: 0, y: 0, z: -7
-			}
-		},
-		textures: {
-			src: ['img/keepertexture.png'],
-			parameters: [{
-				name: 'TEXTURE_MAG_FILTER',
-				value: 'LINEAR'
-			}, {
-				name: 'TEXTURE_MIN_FILTER',
-				value: 'LINEAR_MIPMAP_NEAREST',
-				generateMipmap: true
-			}]
-		},
-		events: {
-			onDragStart: function(e) {
-				pos = {
-					x: e.x,
-					y: e.y
-				};
-			},
-			onDragMove: function(e) {
-				var z = this.camera.position.z,
-				sign = Math.abs(z) / z;
+	renderer = new THREE.WebGLRenderer({canvas: myGame});
+	//renderer.setSize( myWidth, myHeight );
 
-				moon.rotation.y += -(pos.x - e.x) / 100;
-				moon.rotation.x += sign * (pos.y - e.y) / 100;
-				moon.update();
-				pos.x = e.x;
-				pos.y = e.y;
-			},
-			onMouseWheel: function(e) {
-				e.stop();
-				var camera = this.camera;
-				camera.position.z += e.wheel;
-				camera.update();
-			}
-		},
-		onError: function() {
-			alert('There was an error creating the app');
-		},
-		onLoad: function(app) {
-			// Unpack app properties
-			var gl = app.gl,
-			program = app.program,
-			scene = app.scene,
-			canvas = app.canvas,
-			camera = app.camera;
-			// Add object to the scene
-			scene.add(moon);
-			// Draw the scene
-			draw();
-			function draw() {
-				// Clear the screen
-				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-				// Setup lighting
-				/*var lights = scene.config.lights;
-				lights.enable = lighting.checked;
-				lights.ambient = {
-					r: +ambient.r.value,
-					g: +ambient.g.value,
-					b: +ambient.b.value
-				};
-				lights.directional = {
-					color: {
-						r: +direction.r.value,
-						g: +direction.g.value,
-						b: +direction.b.value
-					},
-					direction: {
-						x: +direction.x.value,
-						y: +direction.y.value,
-						z: +direction.z.value
-					}
-				};*/
-				// Render moon
-				scene.render();
-				// Animate
-				PhiloGL.Fx.requestAnimationFrame(draw);
-			}
-		}
-	});
+	//document.getElementById('myGame').appendChild( renderer.domElement );
+}
+
+function animate(){
+	requestAnimationFrame( animate );
+
+	mesh.rotation.x += 0.01;
+	mesh.rotation.y += 0.02;
+
+	renderer.render( scene, camera );
 }

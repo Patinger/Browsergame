@@ -28,13 +28,13 @@ html, body{
 	#myGame{width:100%;height:100%;}
 }
 @media (min-width:768px){
-	#myGame{width:768px;height:460;}
+	#myGame{width:718px;height:410;}
 }
 @media (min-width:992px){
-	#myGame{width:992px;height:595px;}
+	#myGame{width:942px;height:545px;}
 }
 @media (min-width:1200px){
-	#myGame{width:1200px;height:720px;}
+	#myGame{width:1150px;height:670px;}
 }
 
 #myTop{
