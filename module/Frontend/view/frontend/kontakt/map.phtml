@@ -1,0 +1,27 @@
+<?php
+$title = 'Prüfstelle';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+<div class="myProfile">
+	<div class="myProfileImage" style="background-image:url(<?php echo $this->basePath() ?>/img/Foto03.jpg);"></div>
+	<div class="myProfileTextfeld1 myProfileText">
+		<h3>Pr&#252;fst&#252;tzpunkt</h3>
+		<h5>bei Firma "Werner und Wildemann Automobile"</h5> </br>
+		<h5>Bielefelderstr. 50</h5> 
+		<h5>49176 Hilter</h5> 
+	</div>
+	<div class="myProfileTextfeld2 myProfileText">
+		<h3>&#214;fffnungszeiten</h3>
+		<h5>Mo. und Di.  9-12</h5>
+		<h5>Mi. und Fr.  14-17</h5>
+		<h5>Do  9-12 u. 14-18</h5>
+		<h5>jeden ersten Samstag im Monat: 9-12</h5>
+	</div>
+</div>
+<div style="clear:both;"></div>
+
+
+<div id="map-canvas"></div>

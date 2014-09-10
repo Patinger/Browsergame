@@ -1,0 +1,63 @@
+<?php
+$title = 'Adminbereich';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+<h3>UserFahrzeuge</h3>
+<table class="table table-striped">
+<tr class="active">
+    <th>ID</th>
+    <th>user_id</th>
+    <th>Fahrzeugart</th>
+    <th>Beschreibung</th>
+    <th>letzte Prüfung</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($userfahrzeuge as $userfahrzeug) : ?>
+<tr>
+
+    <td><?php echo $this->escapeHtml($userfahrzeug->getId())   ;?></td>
+    <td><?php echo $this->escapeHtml($userfahrzeug->getUser_id())   ;?></td>
+    <td><?php echo $this->escapeHtml($userfahrzeug->getFahrzeugart())   ;?></td>
+    <td><?php echo $this->escapeHtml($userfahrzeug->getBeschreibung())   ;?></td>
+    <td><?php echo $this->escapeHtml($userfahrzeug->getLetztepruefung()->format('d.m.Y'));?></td>
+
+    <td align="right">
+        <a class="btn btn-default btn-xs" href="<?php echo $this->url('admin',
+            array('action'=>'deletefahrzeug', 'id' => $userfahrzeug->getId()));?>" onClick="return confirm('Wirklich löschen?');"><span class="glyphicon glyphicon-remove"></span></a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+
+
+<h3>User</h3>
+<table class="table table-striped">
+<tr class="active">
+    <th>ID</th>
+    <th>Rolle</th>
+    <th>Username</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Email</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($user as $eachUser) : ?>
+<tr>
+
+    <td><?php echo $this->escapeHtml($eachUser->getId())   ;?></td>
+    <td><?php echo $this->escapeHtml($eachUser->getRole())   ;?></td>
+    <td><?php echo $this->escapeHtml($eachUser->getUsername())   ;?></td>
+    <td><?php echo $this->escapeHtml($eachUser->getName())   ;?></td>
+    <td><?php echo $this->escapeHtml($eachUser->getSurname());?></td>
+    <td><?php echo $this->escapeHtml($eachUser->getEmail());?></td>
+
+    <td align="right">
+        <a class="btn btn-default btn-xs" href="<?php echo $this->url('admin',
+            array('action'=>'deleteuser', 'id' => $eachUser->getId()));?>" onClick="return confirm('Wirklich löschen?');"><span class="glyphicon glyphicon-remove"></span></a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>

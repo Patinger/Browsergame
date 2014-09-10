@@ -1,0 +1,113 @@
+<?php
+$title = 'Meine Autos';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+<div class="modal fade" id="fahrzeugHinzufuegen_Modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Neues Auto hinzufuegen</h4>
+      </div>
+      <div class="modal-body">
+        
+			<?php
+			$form = $this->form;
+			$form->setAttribute('action', $this->url('meineautos'));
+			$form->prepare();
+
+			echo $this->form()->openTag($form);
+			echo $this->formHidden($form->get('id')->setAttribute('class', 'form-control'));
+			echo $this->formHidden($form->get('user_id')->setAttribute('class', 'form-control'));
+      echo $this->formRow($form->get('fahrzeugart')->setAttribute('class', 'form-control'));
+      echo $this->formRow($form->get('beschreibung')->setAttribute('class', 'form-control'));
+			echo $this->formRow($form->get('letztepruefung')->setAttribute('class', 'form-control'));
+			?>
+
+      </div>
+      <div class="modal-footer">
+      		<?php
+			echo $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary'));
+			echo $this->formElement($this->form->get('csrf'));
+			echo $this->form()->closeTag();
+			?>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="letztepruefungAendern_Modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Prüfungsdatum ändern</h4>
+      </div>
+      <div class="modal-body">
+        
+			<?php
+			$form = $this->form;
+			$form->setAttribute('action', $this->url('meineautos', array('action' => 'edit')));
+			$form->prepare();
+
+			echo $this->form()->openTag($form);
+			echo $this->formHidden($form->get('id')->setAttribute('class', 'form-control')->setAttribute('id', 'userfahrzeugID'));
+			echo $this->formHidden($form->get('user_id')->setAttribute('class', 'form-control'));
+			echo $this->formRow($form->get('letztepruefung')->setAttribute('class', 'form-control'));
+			?>
+
+      </div>
+      <div class="modal-footer">
+      		<?php
+			echo $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary'));
+			echo $this->formElement($this->form->get('csrf'));
+			echo $this->form()->closeTag();
+			?>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<table class="table table-striped">
+<tr class="active">
+    <th>Fahrzeugart</th>
+    <th>Beschreibung</th>
+    <th>letzte Prüfung</th>
+    <th>nächste Prüfung</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($userfahrzeugArray as $userfahrzeug) : ?>
+<tr>
+
+    <td><?php echo $this->escapeHtml($userfahrzeug->getFahrzeugart()) ;?></td>
+    <td><?php echo $this->escapeHtml($userfahrzeug->getBeschreibung()) ;?></td>
+    <td>
+    	<?php echo $this->escapeHtml($userfahrzeug->getLetztepruefung()->format('d.m.Y'));?>
+        <button class="btn btn-default btn-xs" onclick="showModal('#letztepruefungAendern_Modal');$('#userfahrzeugID').val('<?php echo $userfahrzeug->getId() ?>')"><span class="glyphicon glyphicon-pencil"></span></button>
+    </td>
+    <td>
+	    <?php 
+	    	$date = $userfahrzeug->getLetztepruefung();
+  			$date->add(new DateInterval('P1Y6M10D'));
+  			if($date->getTimestamp()>time()) echo '<span style="color:green">';
+  			else echo '<span style="color:red">';
+  		?>
+    	<?php echo $this->escapeHtml($date->format('d.m.Y')).'</span>';?>
+    </td>
+    <td align="right">
+        <a class="btn btn-default btn-xs" href="<?php echo $this->url('meineautos',
+            array('action'=>'delete', 'id' => $userfahrzeug->getId()));?>" onClick="return confirm('Wirklich löschen?');"><span class="glyphicon glyphicon-remove"></span></a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+
+
+<button class="btn btn-default" onclick="showModal('#fahrzeugHinzufuegen_Modal');"><span class="glyphicon glyphicon-plus"></span> Neues Auto hinzufügen</button>
+
+

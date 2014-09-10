@@ -1,0 +1,59 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle(' - Browsergame') ?>
+
+    <?php echo $this->headMeta()
+    ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+    ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/symbol1.png'))
+    ->prependStylesheet($this->basePath() . '/css/bootstrap-datetimepicker.css')
+    ->prependStylesheet($this->basePath() . '/css/stylesheet.css')
+    ->prependStylesheet($this->basePath() . '/css/bootstrap.css') ?>
+
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+    ->prependFile($this->basePath() . '/js/bootstrap-datetimepicker-de.js')
+    ->prependFile($this->basePath() . '/js/bootstrap-datetimepicker.js')
+    ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+    ->prependFile($this->basePath() . '/js/myGame.js')
+    ->prependFile($this->basePath() . '/js/javascript.js')
+    ->prependFile($this->basePath() . '/js/moment.js')
+    ->prependFile($this->basePath() . '/js/jquery-1.11.1.min.js')
+    ->prependFile($this->basePath() . '/js/PhiloGL.cls.js')
+    ; ?>
+</head>
+<body>
+    <?php // <-- Update this !!
+        $nav = 'app_navigation';
+        if($this->loggedIn)
+        {
+            if($identity->role == 'admin')       $nav = 'admin_navigation';
+            else if($identity->role == 'member') $nav = 'member_navigation';
+        }
+            
+        $this->navigation($nav)->menu()->setPartial('partials/horizontal.phtml');
+        echo $this->navigation($nav)->menu()->render();
+    ?>
+    <div class="container myContainer" id="myContainer">
+        <?php
+        if ($this->loggedIn)
+            {
+                ?>
+                <div style="background-color:#F5F5F5;margin-top:5px;padding:2px;padding-left:5px;font-size:17px;">Hallo <a href="<?php echo $this->url('user');?>"><?php echo $identity->username; ?></a></div>
+                <?php
+            }
+        ?>
+        <?php echo $this->content; ?>
+
+        <div class="myFooter"> Seite im Aufbau! <br> Version: 0.00a </div>
+    </div> <!-- /container -->
+    <?php echo $this->inlineScript() ?>
+    <div id="myTop" class="myTop" onclick="$(window).scrollTop(0,0);"><span class="glyphicon glyphicon-arrow-up"></span></div>
+</body>
+</html>

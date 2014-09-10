@@ -1,0 +1,46 @@
+<?php
+$title = 'Benutzer';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<div class="modal fade" id="editUser_Modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Benutzerangaben ändern</h4>
+      </div>
+      <div class="modal-body">
+        
+			<?php
+			$form = $this->form;
+			$form->setAttribute('action', $this->url('user', array('action' => 'edit')));
+			$form->prepare();
+
+			echo $this->form()->openTag($form);
+			echo $this->formHidden($form->get('id')->setAttribute('class', 'form-control'));
+	        echo $this->formRow($form->get('name')->setAttribute('class', 'form-control'));
+	        echo $this->formRow($form->get('surname')->setAttribute('class', 'form-control'));
+			echo $this->formRow($form->get('email')->setAttribute('class', 'form-control'));
+			?>
+
+      </div>
+      <div class="modal-footer">
+      		<?php
+			echo $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary'));
+			echo $this->formElement($this->form->get('csrf'));
+			echo $this->form()->closeTag();
+			?>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+Benutzername: <?php echo $user->getUsername(); ?><br>
+Email: <?php echo $user->getEmail(); ?><br>
+Vorname: <?php echo $user->getName(); ?><br>
+Nachname: <?php echo $user->getSurname(); ?><br>
+
+<button class="btn btn-default" onclick="showModal('#editUser_Modal');"><span class="glyphicon glyphicon-pencil"></span> Angaben bearbeiten</button>

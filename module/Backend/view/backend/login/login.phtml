@@ -1,0 +1,21 @@
+<?php
+$title = 'Anmelden';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+Melden sie sich an, oder erstellen sie einen Account, um ihre Autos zu spiechern, damit sie keine Prüfungstermine verpassen!
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('login', array('action' => 'login')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('username')->setAttribute('class', 'form-control'));
+echo $this->formRow($form->get('password')->setAttribute('class', 'form-control'));
+echo '<br/>';
+echo $this->formSubmit($form->get('submit')->setAttribute('class', 'form-control btn-default'));
+echo $this->formElement($this->form->get('csrf'));
+echo $this->form()->closeTag();
+?>
+<br>
+<a class="btn btn-default" href="<?php echo $this->url('login',array('action' => 'registration'));?>">Registrieren</a>

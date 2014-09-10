@@ -1,0 +1,301 @@
+<?php
+$title = 'Alle Preise im Überblick';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Preis ändern</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+		  <input id="priceInput" type="text" class="form-control" placeholder="00,00">
+		  <span class="input-group-addon">€</span>
+		</div>
+		<br>
+		<div id="preisAlert" class="alert alert-warning fade" role="alert">
+	      <strong>Eingabe überprüfen!</strong> Der Preis muss mit einem Komma und zwei Zahlen enden. (z.B. 50,00)
+	    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="changePrice('<?php echo $this->url('backendPreise');?>');">Änderungen speichern</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="myTableFrame">
+	<table class="myTable">
+		<tr>
+			<th             colspan="2"><fett>Entgelte in €</fett><br/>inkl. 19% MwSt.<br/><fett>gültig ab 1. Februar 2014</fett></th>
+			<th             colspan="5">§ 29 StVZO<br/><fett>HU</fett> <upper>1)</upper><br/>(Hauptuntersuchung)</th>
+			<th             colspan="2">§ 29 StVZO<br/><fett>SP</fett> <upper>1)</upper><br/>(Sicherheutsüberprüfung)</th>
+			<th             colspan="5">§ 19(3) StVZO<br/><fett>Änderungen am Fahrzeug</fett><br/>(Änderungsabnahmen)</th>
+			<th             colspan="2">§ 23 StVZO<br/><fett>Oldtimer-Gutachten</fett></th>
+		</tr>
+		<tr>
+			<td rowspan="3" class="myTableAlignLeft"><fett>Fahrzeugart</fett></td>
+			<td rowspan="3"            >zulässige<br/>Ges-Masse<br/>(Gewicht)</td>
+			<td             colspan="3"><fett>Erstuntersuchung</fett> <upper>2)</upper></td>
+			<td             colspan="2"><fett>Nachprüfung</fett></td>
+			<td rowspan="3"            >Erst-<br/>unter-<br/>suchung</td>
+			<td rowspan="3"            >Nach-<br/>unter-<br/>suchung</td>
+			<td rowspan="3"            >einfach</td>
+			<td rowspan="3"            >mittel</td>
+			<td rowspan="3"            >umfang-<br/>reich</td>
+			<td rowspan="3"            >Nach-<br/>unter-<br/>suchung</td>
+			<td rowspan="3"            ><div class="myTableVertical">Zuschlag<br/>pro &frac14; Std.</div></td>
+			<td rowspan="2" colspan="2"><fett>Ersterstattung</fett><br/>(H- od. 07er-Kennzeichen)</td>
+		</tr>
+		<tr>
+			<td rowspan="2"            ><fett>ohne UMA</fett> <upper>*)</upper><br/>(UMA liegt vor)</td>
+			<td             colspan="2"><fett>inklusive UMA</fett> <upper>*)</upper></td>
+			<td rowspan="2"            >Nachunter-<br/>suchung</td>
+			<td rowspan="2"            ><div class="myTableVertical">Nach-<br/>kontrolle</div></td>
+		</tr>
+		<tr>
+			<td>ohne<br/>Abgasstrom-<br/>messung</td>
+			<td>mit<br/>Abgasstrom-<br/>messung</td>
+			<td>ohne<br/>UMA <upper>*)</upper></td>
+			<td>inkl.<br/>UMA <upper>*)</upper></td>
+		</tr>
+		<tr>
+			<td              colspan="2" class="myTableAlignLeft"><fett>Kraftrad</fett> (EZ vor 1.1.1989)</td>
+			<?php $data=$gtueData->getPreis('hu','Kraftrad', '', 'a'); ?><td rowspan="2"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<td              colspan="2" class="myTableCrossed"></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftrad', '', 'd'); ?><td rowspan="2"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			(einfach) <?php $data=$gtueData->getPreis('hu','Kraftrad', '', 'e'); ?><td rowspan="10"            ><div class="myTableVertical"><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div><br/><div class="(umfangreich) <?php $data=$gtueData->getPreis('hu','Kraftrad', '', 'f'); ?>preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></div></td>
+			<td rowspan="2"  colspan="2" class="myTableCrossed"></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftrad', '', 'a'); ?><td rowspan="2"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftrad', '', 'b'); ?><td rowspan="2"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftrad', '', 'c'); ?><td rowspan="2"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftrad', '', 'd'); ?><td rowspan="2"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftrad', '', 'e'); ?><td rowspan="25"            ><div class="myTableVertical"><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftrad', '', 'a'); ?><td rowspan="2"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<td rowspan="2"  class="myTableCrossed"></td>
+		</tr>
+		<tr>
+			<td              colspan="2" class="myTableAlignLeft"><fett>Krad</fett> (EZ ab 1.1.89) <fett>u. EU-Quad/-Trike</fett><upper>**)</upper></td>
+			<?php $data=$gtueData->getPreis('hu','Krad', '', 'b'); ?><td              colspan="2"><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td class="myTableAlignLeft"><fett>Pkw</fett> <upper>3)</upper></td>
+			<td                         ><fett>bis 3,5 t</fett></td>
+			<?php $data=$gtueData->getPreis('hu','Pkw', 'bis 3,5 t', 'a'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<?php $data=$gtueData->getPreis('hu','Pkw', 'bis 3,5 t', 'b'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<?php $data=$gtueData->getPreis('hu','Pkw', 'bis 3,5 t', 'c'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<?php $data=$gtueData->getPreis('hu','Pkw', 'bis 3,5 t', 'd'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<td              colspan="2" class="myTableCrossed"></td>
+			<?php $data=$gtueData->getPreis('aenderung','Pkw', 'bis 3,5 t', 'a'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<?php $data=$gtueData->getPreis('aenderung','Pkw', 'bis 3,5 t', 'b'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<?php $data=$gtueData->getPreis('aenderung','Pkw', 'bis 3,5 t', 'c'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<?php $data=$gtueData->getPreis('aenderung','Pkw', 'bis 3,5 t', 'd'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Pkw', 'bis 3,5 t', 'a'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></fett></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Pkw', 'bis 3,5 t', 'b'); ?><td                         ><fett><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></fett></td>
+
+		</tr>
+		<tr>
+			<td rowspan="7" class="myTableAlignLeft">Lkw, Zugmaschine,<br/>Sattelzugmaschine,<br/>Arbeitsmaschine, KOM<br/>und sonstige Kraftfahr-<br/>zeuge</td>
+			<td                         >bis 3,5 t</td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', 'bis 3,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', 'bis 3,5 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', 'bis 3,5 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', 'bis 3,5 t', 'd'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', 'bis 3,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', 'bis 3,5 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftfahrzeug', 'bis 3,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftfahrzeug', 'bis 3,5 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftfahrzeug', 'bis 3,5 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftfahrzeug', 'bis 3,5 t', 'd'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', 'bis 3,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', 'bis 3,5 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;3,5 bis 7,5 t</td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>3,5 bis 7,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>3,5 bis 7,5 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>3,5 bis 7,5 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>3,5 bis 7,5 t', 'd'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', '>3,5 bis 7,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', '>3,5 bis 7,5 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftfahrzeug', '>3,5 bis 7,5 t', 'a'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftfahrzeug', '>3,5 bis 7,5 t', 'b'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftfahrzeug', '>3,5 bis 7,5 t', 'c'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Kraftfahrzeug', '>3,5 bis 7,5 t', 'd'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>3,5 bis 7,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>3,5 bis 7,5 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;7,5 bis 12,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>7,5 bis 12,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>7,5 bis 12,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>7,5 bis 12,0 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', '>7,5 bis 12,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', '>7,5 bis 12,0 t', 'b'); ?><td rowspan="5"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>7,5 bis 12,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>7,5 bis 12,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;12,0 bis 18,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>12,0 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>12,0 bis 18,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>12,0 bis 18,0 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', '>12,0 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>12,0 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>12,0 bis 18,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;18,0 bis 28,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>18,0 bis 28,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>18,0 bis 28,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>18,0 bis 28,0 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', '>18,0 bis 28,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>18,0 bis 28,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>18,0 bis 28,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;28,0 bis 32,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>28,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>28,0 bis 32,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', '>28,0 bis 32,0 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', '>28,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>28,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', '>28,0 bis 32,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >über 32,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', 'über 32,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Kraftfahrzeug', 'über 32,0 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Kraftfahrzeug', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Kraftfahrzeug', 'über 32,0 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td rowspan="3" class="myTableAlignLeft">Lof.-ZM <upper>4)5)</upper> bis 40 km/h</td>
+			<td                         >bis 7,5 t</td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM bis 40 km/h', 'bis 7,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<td rowspan="15" colspan="2" class="myTableCrossed"></td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM bis 40 km/h', 'bis 7,5 t', 'd'); ?><td rowspan="3"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM bis 40 km/h', 'bis 7,5 t', 'm'); ?><td rowspan="15"            ><div class="myTableVertical"><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></div></td>
+			<td rowspan="3"  colspan="2" class="myTableCrossed"></td>
+			<?php $data=$gtueData->getPreis('aenderung','Lof.-ZM bis 40 km/h', 'bis 7,5 t', 'a'); ?><td rowspan="3"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Lof.-ZM bis 40 km/h', 'bis 7,5 t', 'b'); ?><td rowspan="3"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Lof.-ZM bis 40 km/h', 'bis 7,5 t', 'c'); ?><td rowspan="3"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Lof.-ZM bis 40 km/h', 'bis 7,5 t', 'd'); ?><td rowspan="3"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Lof.-ZM bis 40 km/h', 'bis 7,5 t', 'a'); ?><td rowspan="3"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+			<td rowspan="15" class="myTableCrossed"></td>
+		</tr>
+		<tr>
+			<td                         >&gt;7,5 bis 12,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM bis 40 km/h', '>7,5 bis 12,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >über 12,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM bis 40 km/h', 'über 12,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td rowspan="4" class="myTableAlignLeft">Lof.-ZM <upper>5)</upper> üb. 40 km/h</td>
+			<td                         >bis 7,5 t</td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM ueber 40 km/h', 'bis 7,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM ueber 40 km/h', 'bis 7,5 t', 'd'); ?><td rowspan="4"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<td             colspan="2" class="myTableCrossed"></td>
+			<?php $data=$gtueData->getPreis('aenderung','Lof.-ZM ueber 40 km/h', 'bis 7,5 t', 'a'); ?><td rowspan="4"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Lof.-ZM ueber 40 km/h', 'bis 7,5 t', 'b'); ?><td rowspan="4"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Lof.-ZM ueber 40 km/h', 'bis 7,5 t', 'c'); ?><td rowspan="4"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Lof.-ZM ueber 40 km/h', 'bis 7,5 t', 'd'); ?><td rowspan="4"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Lof.-ZM ueber 40 km/h', 'bis 7,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;7,5 bis 18,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM ueber 40 km/h', '>7,5 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Lof.-ZM ueber 40 km/h', '>7,5 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Lof.-ZM ueber 40 km/h', '>7,5 bis 18,0 t', 'b'); ?><td rowspan="3"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Lof.-ZM ueber 40 km/h', '>7,5 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;18,0 bis 32,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM ueber 40 km/h', '>18,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Lof.-ZM ueber 40 km/h', '>18,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Lof.-ZM ueber 40 km/h', '>18,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >über 32,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Lof.-ZM ueber 40 km/h', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Lof.-ZM ueber 40 km/h', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Lof.-ZM ueber 40 km/h', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td class="myTableAlignLeft">Anh. ohne Bremse</td>
+			<td                         >bis 0,75 t</td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger ohne Bremse', 'bis 0,75 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger ohne Bremse', 'bis 0,75 t', 'd'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<td rowspan="3"  colspan="2" class="myTableCrossed"></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger ohne Bremse', 'bis 0,75 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger ohne Bremse', 'bis 0,75 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger ohne Bremse', 'bis 0,75 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger ohne Bremse', 'bis 0,75 t', 'd'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Anhaenger ohne Bremse', 'bis 0,75 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td rowspan="7" class="myTableAlignLeft">Anhänger m. Bremse,<br/>Starrdeichselanhaenger<br/>od. Sattelanhaenger <upper>6)</upper><br/>m.Bremse</td>
+			<td                         >bis 3,5 t</td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', 'bis 3,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', 'bis 3,5 t', 'd'); ?><td rowspan="2"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger mit Bremse', 'bis 3,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger mit Bremse', 'bis 3,5 t', 'b'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger mit Bremse', 'bis 3,5 t', 'c'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger mit Bremse', 'bis 3,5 t', 'd'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Anhaenger mit Bremse', 'bis 3,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;3,5 bis 7,5 t</td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', '>3,5 bis 7,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger mit Bremse', '>3,5 bis 7,5 t', 'a'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger mit Bremse', '>3,5 bis 7,5 t', 'b'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger mit Bremse', '>3,5 bis 7,5 t', 'c'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('aenderung','Anhaenger mit Bremse', '>3,5 bis 7,5 t', 'd'); ?><td rowspan="6"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'aenderung', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Anhaenger mit Bremse', '>3,5 bis 7,5 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;7,5 bis 12,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', '>7,5 bis 12,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', '>7,5 bis 12,0 t', 'd'); ?><td rowspan="5"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Anhaenger mit Bremse', '>7,5 bis 12,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Anhaenger mit Bremse', '>7,5 bis 12,0 t', 'b'); ?><td rowspan="5"             ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Anhaenger mit Bremse', '>7,5 bis 12,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;12,0 bis 18,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', '>12,0 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Anhaenger mit Bremse', '>12,0 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Anhaenger mit Bremse', '>12,0 bis 18,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;18,0 bis 28,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', '>18,0 bis 28,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Anhaenger mit Bremse', '>18,0 bis 28,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Anhaenger mit Bremse', '>18,0 bis 28,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >&gt;28,0 bis 32,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', '>28,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Anhaenger mit Bremse', '>28,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Anhaenger mit Bremse', '>28,0 bis 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+		<tr>
+			<td                         >über 32,0 t</td>
+			<?php $data=$gtueData->getPreis('hu','Anhaenger mit Bremse', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'hu', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('sp','Anhaenger mit Bremse', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'sp', this);"><?php echo $data['preis']; ?></div></td>
+			<?php $data=$gtueData->getPreis('oldtimer','Anhaenger mit Bremse', 'über 32,0 t', 'a'); ?><td                         ><div class="preisAendern"  onclick="showPriceModal(<?php echo $data['id'] ?>, 'oldtimer', this);"><?php echo $data['preis']; ?></div></td>
+		</tr>
+	</table>
+</div>
+
+
+<a class="btn btn-default" href="<?php echo $this->url('preise');?>">Zurück</a>
