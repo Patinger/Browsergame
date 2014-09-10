@@ -13,41 +13,48 @@ function init(basePath){
 	camera.position.z = 1000;
 
 	geometry = new THREE.BoxGeometry( 200, 200, 200 );
-	material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+	// material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
 
-	mesh = new THREE.Mesh( geometry, material );
+	
 
 	var squareGeometry = new mySquare(128);
 
 
-	var squareMaterial = new THREE.MeshBasicMaterial({
-		color:0xFFFFFF,
-		side:THREE.DoubleSide
-	});
+	// var squareMaterial = new THREE.MeshBasicMaterial({
+	// 	color:0xFFFFFF,
+	// 	side:THREE.DoubleSide
+	// });
 
-	var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
-	squareMesh.position.set(1.5, 0.0, 4.0);
+	// var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
+	// squareMesh.position.set(1.5, 0.0, 4.0);
 
-	// var texture = THREE.ImageUtils.loadTexture(myBasePath+'/img/keepertexture.png');
+	var texture = THREE.ImageUtils.loadTexture(myBasePath+'/img/keepertexture.png');
 	// texture.wrapS = THREE.RepeatWrapping;
 	// texture.wrapT = THREE.RepeatWrapping;
 	// texture.repeat.set( 4, 4 );
 	
- //   var squareMaterial = new THREE.MeshBasicMaterial({
- //       map:texture,
- //       side:THREE.DoubleSide
- //   });
+   var squareMaterial = new THREE.MeshBasicMaterial({
+       map:texture,
+       side:THREE.DoubleSide
+   });
 
 	var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
+	mesh = new THREE.Mesh( geometry, squareMaterial );
 	squareMesh.position.set(1.5, 0.0, 4.0);
 
-	scene.add(squareMesh);
-	scene.add( mesh );
+	var groundModel = new THREE.Mesh(new THREE.PlaneGeometry(128, 128, 1, 1), squareMaterial);
+
+	//scene.add(squareMesh);
+	//scene.add( mesh );
+	scene.add( groundModel );
 
 	renderer = new THREE.WebGLRenderer({canvas: myGame});
+	renderer.render( scene, camera );
 	//renderer.setSize( myWidth, myHeight );
 
 	//document.getElementById('myGame').appendChild( renderer.domElement );
+
+	animate();
 }
 
 function animate(){
