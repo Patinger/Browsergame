@@ -1,15 +1,12 @@
 var myWidth = 1200, myHeight = 720
 var scene, camera, renderer;
 var geometry, material, mesh;
+var myBasePath;
 
-$( document ).ready(function() {
+
+function init(basePath){
+	myBasePath = basePath;
 	$('#myGame').attr({width:myWidth,height:myHeight});
-
-	init();
-	animate();
-});
-
-function init(){
 	scene = new THREE.Scene();
 	
 	camera = new THREE.PerspectiveCamera( 75, myWidth / myHeight, 1, 10000 );
@@ -19,6 +16,32 @@ function init(){
 	material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
 
 	mesh = new THREE.Mesh( geometry, material );
+
+	var squareGeometry = new mySquare(128);
+
+
+	var squareMaterial = new THREE.MeshBasicMaterial({
+		color:0xFFFFFF,
+		side:THREE.DoubleSide
+	});
+
+	var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
+	squareMesh.position.set(1.5, 0.0, 4.0);
+
+	// var texture = THREE.ImageUtils.loadTexture(myBasePath+'/img/keepertexture.png');
+	// texture.wrapS = THREE.RepeatWrapping;
+	// texture.wrapT = THREE.RepeatWrapping;
+	// texture.repeat.set( 4, 4 );
+	
+ //   var squareMaterial = new THREE.MeshBasicMaterial({
+ //       map:texture,
+ //       side:THREE.DoubleSide
+ //   });
+
+	var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
+	squareMesh.position.set(1.5, 0.0, 4.0);
+
+	scene.add(squareMesh);
 	scene.add( mesh );
 
 	renderer = new THREE.WebGLRenderer({canvas: myGame});
@@ -34,4 +57,24 @@ function animate(){
 	mesh.rotation.y += 0.02;
 
 	renderer.render( scene, camera );
+}
+
+function mySquare(size) { 
+
+    var square = new THREE.Geometry(); 
+
+    //set 4 points
+    square.vertices.push(new THREE.Vector3(-size, size,0));
+    square.vertices.push(new THREE.Vector3( size, size,0));
+    square.vertices.push(new THREE.Vector3( size,-size,0));
+    square.vertices.push(new THREE.Vector3(-size,-size,0));
+
+    //push 1 triangle
+    square.faces.push(new THREE.Face3( 0,1,2));
+
+    //push another triangle
+    square.faces.push(new THREE.Face3( 0,3,2));
+
+    //return the square object with BOTH faces
+    return square;
 }

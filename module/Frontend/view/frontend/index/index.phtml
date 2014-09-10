@@ -2,5 +2,12 @@
 $title = 'Vehling, Stiene & Partner';
 $this->headTitle($title);
 ?>
+<script>
+	$( document ).ready(function() {
+
+		init('<?php echo $this->basePath(); ?>');
+		animate();
+	});
+</script>
 
  <canvas id="myGame"></canvas> 
