@@ -66,17 +66,17 @@ return array(
                      ),
                  ),
              ),
-            'preise' => array(
+            'terrain' => array(
                  'type'    => 'segment',
                  'options' => array(
-                     'route'    => '/preise[/][:action][/:id]',
+                     'route'    => '/terrain[/][:action][/:id]',
                      'constraints' => array(
                          'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                          'id'     => '[0-9]+',
                      ),
                      'defaults' => array(
-                         'controller' => 'Frontend\Controller\Preise',
-                         'action'     => 'index',
+                         'controller' => 'Frontend\Controller\Terrain',
+                         'action'     => 'terrainjson',
                      ),
                  ),
              ),
@@ -116,7 +116,7 @@ return array(
             'Frontend\Controller\Book' => 'Frontend\Controller\BookController',
             'Frontend\Controller\Ueberuns' => 'Frontend\Controller\UeberunsController',
             'Frontend\Controller\Kontakt' => 'Frontend\Controller\KontaktController',
-            'Frontend\Controller\Preise' => 'Frontend\Controller\PreiseController',
+            'Frontend\Controller\Terrain' => 'Frontend\Controller\TerrainController',
             'Frontend\Controller\Impressum' => 'Frontend\Controller\ImpressumController',
             'Frontend\Controller\Dienstleistungen' => 'Frontend\Controller\DienstleistungenController',
         ),

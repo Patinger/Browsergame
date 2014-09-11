@@ -107,71 +107,12 @@ return array(
     'navigation' => array(
         'member' => array(
             array(
-                'label' => 'Home',
+                'label' => 'Game',
                 'route' => 'home',
             ),
             array(
-                'label' => 'Über Uns',
-                'route' => 'ueberuns',
-            ),
-            array(
-                'label' => 'Dienstleistungen',
-                'route' => 'dienstleistungen',
-                'pages' => array(
-                    array(
-                         'label' => 'Hauptuntersuchung',
-                         'route' => 'dienstleistungen',
-                         'action' => 'hauptuntersuchung',
-                    ),
-                     array(
-                         'label' => 'Sicherheitspruefung',
-                         'route' => 'dienstleistungen',
-                         'action' => 'sicherheitspruefung',
-                    ),
-                     array(
-                         'label' => 'Änderungsabnahme',
-                         'route' => 'dienstleistungen',
-                         'action' => 'aenderungsabnahme',
-                    ),
-                     array(
-                         'label' => 'Oldtimer-Gutachten',
-                         'route' => 'dienstleistungen',
-                         'action' => 'oldtimergutachten',
-                    ),
-                     array(
-                         'label' => 'Schadengutachten',
-                         'route' => 'dienstleistungen',
-                         'action' => 'schadengutachten',
-                    ),
-                )
-            ),
-            array(
-                'label' => 'Kosten',
-                'route' => 'preise',
-            ),
-            array(
-                'label' => 'Kontakt',
-                'route' => 'kontakt',
-                'pages' => array( //
-                     array( // params needed for the china page
-                         'label' => 'Kontakt',
-                         'route' => 'kontakt',
-                    ),
-                     array( // params needed for the china page
-                         'label' => 'Prüfstelle',
-                         'route' => 'kontakt',
-                         'action' => 'map',
-                    ),
-                    array( //
-                         'label' => 'Mitarbeiter',
-                         'route' => 'kontakt',
-                         'action' => 'mitarbeiter',
-                    )
-                )
-            ),
-            array(
-                'label' => 'Meine Autos',
-                'route' => 'meineautos',
+                'label' => 'Terrain',
+                'route' => 'terrain',
             ),
             array(
                 'label' => 'Logout',
@@ -181,85 +122,12 @@ return array(
         ),
         'admin' => array(
             array(
-                'label' => 'Home',
+                'label' => 'Game',
                 'route' => 'home',
             ),
             array(
-                'label' => 'Über Uns',
-                'route' => 'ueberuns',
-            ),
-            array(
-                'label' => 'Dienstleistungen',
-                'route' => 'dienstleistungen',
-                'pages' => array(
-                    array(
-                         'label' => 'Hauptuntersuchung',
-                         'route' => 'dienstleistungen',
-                         'action' => 'hauptuntersuchung',
-                    ),
-                     array(
-                         'label' => 'Sicherheitspruefung',
-                         'route' => 'dienstleistungen',
-                         'action' => 'sicherheitspruefung',
-                    ),
-                     array(
-                         'label' => 'Änderungsabnahme',
-                         'route' => 'dienstleistungen',
-                         'action' => 'aenderungsabnahme',
-                    ),
-                     array(
-                         'label' => 'Oldtimer-Gutachten',
-                         'route' => 'dienstleistungen',
-                         'action' => 'oldtimergutachten',
-                    ),
-                     array(
-                         'label' => 'Schadengutachten',
-                         'route' => 'dienstleistungen',
-                         'action' => 'schadengutachten',
-                    ),
-                )
-            ),
-            array(
-                'label' => 'Kosten',
-                'route' => 'preise',
-                'pages' => array(
-                     array( // params needed for the china page
-                         'label' => 'Normal Anzeigen',
-                         'route' => 'preise',
-                    ),
-                    array( //
-                         'label' => 'Preise ändern',
-                         'route' => 'backendPreise',
-                    )
-                )
-            ),
-            array(
-                'label' => 'Kontakt',
-                'route' => 'kontakt',
-                'pages' => array( //
-                     array( // params needed for the china page
-                         'label' => 'Kontakt',
-                         'route' => 'kontakt',
-                    ),
-                     array( // params needed for the china page
-                         'label' => 'Prüfstelle',
-                         'route' => 'kontakt',
-                         'action' => 'map',
-                    ),
-                    array( //
-                         'label' => 'Mitarbeiter',
-                         'route' => 'kontakt',
-                         'action' => 'mitarbeiter',
-                    )
-                )
-            ),
-            array(
-                'label' => 'Meine Autos',
-                'route' => 'meineautos',
-            ),
-            array(
-                'label' => 'Adminbereich',
-                'route' => 'admin',
+                'label' => 'Terrain',
+                'route' => 'terrain',
             ),
             array(
                 'label' => 'Logout',
@@ -269,71 +137,17 @@ return array(
         ),
         'default' => array(
             array(
-                'label' => 'Home',
+                'label' => 'Game',
                 'route' => 'home',
             ),
             array(
-                'label' => 'Über Uns',
-                'route' => 'ueberuns',
+                'label' => 'Terrain',
+                'route' => 'terrain',
             ),
             array(
-                'label' => 'Dienstleistungen',
-                'route' => 'dienstleistungen',
-                'pages' => array(
-                    array(
-                         'label' => 'Hauptuntersuchung',
-                         'route' => 'dienstleistungen',
-                         'action' => 'hauptuntersuchung',
-                    ),
-                     array(
-                         'label' => 'Sicherheitspruefung',
-                         'route' => 'dienstleistungen',
-                         'action' => 'sicherheitspruefung',
-                    ),
-                     array(
-                         'label' => 'Änderungsabnahme',
-                         'route' => 'dienstleistungen',
-                         'action' => 'aenderungsabnahme',
-                    ),
-                     array(
-                         'label' => 'Oldtimer-Gutachten',
-                         'route' => 'dienstleistungen',
-                         'action' => 'oldtimergutachten',
-                    ),
-                     array(
-                         'label' => 'Schadengutachten',
-                         'route' => 'dienstleistungen',
-                         'action' => 'schadengutachten',
-                    ),
-                )
-            ),
-            array(
-                'label' => 'Kosten',
-                'route' => 'preise',
-            ),
-            array(
-                'label' => 'Kontakt',
-                'route' => 'kontakt',
-                'pages' => array( //
-                     array(
-                         'label' => 'Kontakt',
-                         'route' => 'kontakt',
-                    ),
-                     array(
-                         'label' => 'Prüfstelle',
-                         'route' => 'kontakt',
-                         'action' => 'map',
-                    ),
-                    array(
-                         'label' => 'Mitarbeiter',
-                         'route' => 'kontakt',
-                         'action' => 'mitarbeiter',
-                    )
-                )
-            ),
-            array(
-                'label' => 'Meine Autos',
+                'label' => 'Logout',
                 'route' => 'login',
+                'action' => 'logout',
             )
         ),
     ),

@@ -1,4 +1,4 @@
-var myWidth = 1200, myHeight = 720
+var myWidth = 1200, myHeight = 720, myBlockSize = 128;
 var scene, camera, renderer, controls;
 var geometry, material, mesh;
 var myBasePath;
@@ -7,53 +7,30 @@ var myBasePath;
 function init(basePath){
 	myBasePath = basePath;
 	$('#myGame').attr({width:myWidth,height:myHeight});
+
 	scene = new THREE.Scene();
+	scene.fog = new THREE.FogExp2( 0xffcccc, 0.0005 );
 	
 	camera = new THREE.PerspectiveCamera( 75, myWidth / myHeight, 1, 10000 );
 	camera.position.z = 500;
 	camera.rotation.x = 45 * Math.PI / 180;
 
-	geometry = new THREE.BoxGeometry( 200, 200, 200 );
-	// material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+	renderer = new THREE.WebGLRenderer({canvas: myGame});
+	renderer.render( scene, camera );
 
-	
-
-	var groundModel = new myCreateGround(0,0);
-	var groundModel1 = new myCreateGround(128,0);
-	var groundModel2 = new myCreateGround(128,128);
-	var groundModel3 = new myCreateGround(0,128);
-
-	//scene.add(squareMesh);
-	//scene.add( mesh );
-	scene.add( groundModel );
-	scene.add( groundModel1 );
-	scene.add( groundModel2 );
-	scene.add( groundModel3 );
+	controls = new THREE.OrbitControls( camera );
 
 
 	// Add axes
 	axes = buildAxes( 1000 );
 	scene.add( axes );
 
-	renderer = new THREE.WebGLRenderer({canvas: myGame});
-	renderer.render( scene, camera );
-
-	controls = new THREE.TrackballControls( camera );
-
-	controls.rotateSpeed = 1.0;
-	controls.zoomSpeed = 1.2;
-	controls.panSpeed = 0.8;
-
-	controls.noZoom = false;
-	controls.noPan = false;
-
-	controls.staticMoving = true;
-	controls.dynamicDampingFactor = 0.3;
-
-	controls.keys = [ 65, 83, 68 ];
-	//renderer.setSize( myWidth, myHeight );
-
-	//document.getElementById('myGame').appendChild( renderer.domElement );
+	for(var x=-5;x<5;x++){
+		for(var y=-5;y<5;y++){
+			var groundModel = new myCreateGround(x*myBlockSize,y*myBlockSize);
+			scene.add( groundModel );
+		}
+	}
 
 	render();
 }
@@ -70,9 +47,9 @@ function myCreateGround(x, y){
        map:THREE.ImageUtils.loadTexture(myBasePath+'/img/keepertexture.png'),
        side:THREE.DoubleSide
    });
-	var groundMesh = new THREE.Mesh(new THREE.PlaneGeometry(128, 128, 1, 1), squareMaterial);
+	var groundMesh = new THREE.Mesh(new THREE.PlaneGeometry(myBlockSize, myBlockSize, 1, 1), squareMaterial);
 	groundMesh.position.set(x, y, 0);
-	//groundMesh.rotation.x = 90 * Math.PI / 180;
+	//groundMesh.rotation.y = 20 * Math.PI / 180;
 	return groundMesh;
 }
 

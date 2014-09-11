@@ -15,7 +15,7 @@ return array(
     'kontakt' => array(
         'all' => array('admin', 'guest', 'member'),
     ),
-    'preise' => array(
+    'terrain' => array(
         'all' => array('admin', 'guest', 'member'),
     ),
     'impressum' => array(
