@@ -19,7 +19,7 @@ class Terrain extends \Application\Entity\Entity {
     /** @ORM\Column(type="integer") */
     protected $type;
 
-        /* SETTER */
+    /* SETTER */
     public function setId($val='')
     {
         $this->id = $val;

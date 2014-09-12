@@ -25,12 +25,19 @@ function init(basePath){
 	axes = buildAxes( 1000 );
 	scene.add( axes );
 
-	for(var x=-5;x<5;x++){
-		for(var y=-5;y<5;y++){
-			var groundModel = new myCreateGround(x*myBlockSize,y*myBlockSize);
+	// for(var x=-5;x<5;x++){
+	// 	for(var y=-5;y<5;y++){
+	// 		var groundModel = new myCreateGround(x*myBlockSize,y*myBlockSize);
+	// 		scene.add( groundModel );
+	// 	}
+	// }
+
+	$.getJSON( myBasePath+"/terrain/terrainjson", function( data ) {
+		for ( var i = 0, l = data['fields'].length; i < l; i++ ) {
+			var groundModel = new myCreateGround(data['fields'][i]['x']*myBlockSize,data['fields'][i]['y']*myBlockSize);
 			scene.add( groundModel );
 		}
-	}
+	});
 
 	render();
 }
