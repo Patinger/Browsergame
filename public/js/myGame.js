@@ -1,7 +1,6 @@
-var myWidth = 1200, myHeight = 720, myBlockSize = 128, myFieldSize = 25;
+var myWidth = 1200, myHeight = 720, myBlockSize = 128;
 var scene, camera, renderer, controls;
 var geometry, material, mesh;
-var myField = [[]];
 var myBasePath;
 
 
@@ -26,18 +25,8 @@ function init(basePath){
 	axes = buildAxes( 1000 );
 	scene.add( axes );
 
-	// for(var x=-5;x<5;x++){
-	// 	for(var y=-5;y<5;y++){
-	// 		var groundModel = new myCreateGround(x*myBlockSize,y*myBlockSize);
-	// 		scene.add( groundModel );
-	// 	}
-	// }
-
 	$.getJSON( myBasePath+"/terrain/terrainjson", function( data ) {
-		for ( var i = 0, l = data['fields'].length; i < l; i++ ) {
-			var groundModel = new myCreateGround(data['fields'][i]['x']*myBlockSize,data['fields'][i]['y']*myBlockSize);
-			scene.add( groundModel );
-		}
+		myCreateTerrain(data);
 	});
 
 	render();
@@ -49,16 +38,35 @@ function render(){
 	renderer.render( scene, camera );
 }
 
-function myCreateGround(x, y){
-	
+function myCreateTerrain(data){
+		for ( var x = -15; x < 15; x++ ) {
+			for ( var y = -15; y < 15; y++ ) {
+				var myTerrain = null;
+				if(data[x+'_'+y]==1) myTerrain = new myCreateTerrainGround(x, y);
+				else if(data[x+'_'+y]==2) {}//Wall
+				else myTerrain = new myCreateTerrainUnexplored(x, y);
+				scene.add( myTerrain );
+			}
+		}
+}
+function myCreateTerrainGround(x, y){
+	x*=myBlockSize;
+	y*=myBlockSize;
    var squareMaterial = new THREE.MeshBasicMaterial({
        map:THREE.ImageUtils.loadTexture(myBasePath+'/img/keepertexture.png'),
        side:THREE.DoubleSide
    });
 	var groundMesh = new THREE.Mesh(new THREE.PlaneGeometry(myBlockSize, myBlockSize, 1, 1), squareMaterial);
 	groundMesh.position.set(x, y, 0);
-	//groundMesh.rotation.y = 20 * Math.PI / 180;
 	return groundMesh;
+}
+function myCreateTerrainUnexplored(x, y){
+	x*=myBlockSize;
+	y*=myBlockSize;
+	z=myBlockSize/2;
+   	var unexploredMesh = new THREE.Mesh( new THREE.BoxGeometry( myBlockSize, myBlockSize, myBlockSize ), new THREE.MeshBasicMaterial( {color: 0x333333} ));
+	unexploredMesh.position.set(x, y, z);
+	return unexploredMesh;
 }
 
 function buildAxes( length ) {

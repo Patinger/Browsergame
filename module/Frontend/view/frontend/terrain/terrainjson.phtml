@@ -1,11 +1,7 @@
 <?php 
-echo '{"fields":[';
+echo '{';
 for($i=0;$i<count($terrain);$i++){
-	echo '{';
-	echo '"x":'.$terrain[$i]['pos_x'].',';
-	echo '"y":'.$terrain[$i]['pos_y'].',';
-	echo '"t":'.$terrain[$i]['type'];
-	echo '}';
+	echo '"'.$terrain[$i]['pos_x'].'_'.$terrain[$i]['pos_y'].'":'.$terrain[$i]['type'];
 	if($i!=count($terrain)-1) echo ',';
 }
-echo ']}';
+echo '}';
