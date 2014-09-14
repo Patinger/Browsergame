@@ -1,6 +1,7 @@
-var myWidth = 1200, myHeight = 720, myBlockSize = 128;
+var myWidth = 1200, myHeight = 720, myBlockSize = 128, myFieldSize = 25;
 var scene, camera, renderer, controls;
 var geometry, material, mesh;
+var myField = [[]];
 var myBasePath;
 
 

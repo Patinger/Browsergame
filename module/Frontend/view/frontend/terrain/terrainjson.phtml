@@ -2,9 +2,9 @@
 echo '{"fields":[';
 for($i=0;$i<count($terrain);$i++){
 	echo '{';
-	echo '"x":'.$terrain[$i]->getPos_x().',';
-	echo '"y":'.$terrain[$i]->getPos_y().',';
-	echo '"t":'.$terrain[$i]->getType();
+	echo '"x":'.$terrain[$i]['pos_x'].',';
+	echo '"y":'.$terrain[$i]['pos_y'].',';
+	echo '"t":'.$terrain[$i]['type'];
 	echo '}';
 	if($i!=count($terrain)-1) echo ',';
 }
