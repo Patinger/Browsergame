@@ -94,7 +94,7 @@ class LoginController extends AppController
                 if ($result->isValid()) 
                 {
                     $this->getAuthService()->getStorage()->write($this->getAuthService()->getAdapter()->getResultRowObject(null));
-                    return $this->redirect()->toRoute('meineautos');
+                    return $this->redirect()->toRoute('bhome');
                 }
             }
         }
@@ -150,13 +150,5 @@ class LoginController extends AppController
         $this->getAuthService()->clearIdentity();
          
         return $this->redirect()->toRoute('login');
-    }
-    public function getUserTable()
-    {
-        if (!$this->userTable) {
-            $sm = $this->getServiceLocator();
-            $this->userTable = $sm->get('Backend\Model\UserTable');
-        }
-        return $this->userTable;
     }
 }

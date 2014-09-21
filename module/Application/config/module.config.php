@@ -105,10 +105,16 @@ return array(
     ),
     //global config key for all navigation configurations
     'navigation' => array(
+        'default' => array(
+            array(
+                'label' => 'Login',
+                'route' => 'home',
+            )
+        ),
         'member' => array(
             array(
                 'label' => 'Game',
-                'route' => 'home',
+                'route' => 'bhome',
             ),
             array(
                 'label' => 'Terrain',
@@ -121,7 +127,7 @@ return array(
             )
         ),
         'admin' => array(
-            array(
+            /*array(
                 'label' => 'Game',
                 'route' => 'home',
             ),
@@ -133,22 +139,7 @@ return array(
                 'label' => 'Logout',
                 'route' => 'login',
                 'action' => 'logout',
-            )
-        ),
-        'default' => array(
-            array(
-                'label' => 'Game',
-                'route' => 'home',
-            ),
-            array(
-                'label' => 'Terrain',
-                'route' => 'terrain',
-            ),
-            array(
-                'label' => 'Logout',
-                'route' => 'login',
-                'action' => 'logout',
-            )
+            )*/
         ),
     ),
 );

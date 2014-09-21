@@ -1,1 +1,11 @@
-Startseite!
+<?php
+$title = 'Browsergame';
+$this->headTitle($title);
+?>
+<script>
+	$( document ).ready(function() {
+		init('<?php echo $this->basePath(); ?>');
+	});
+</script>
+
+ <canvas id="myGame"></canvas> 

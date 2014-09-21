@@ -11,16 +11,10 @@ namespace Backend\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Controller\AppController;
 
-class IndexController extends AbstractActionController
+class IndexController extends AppController
 {
-
-	public function onDispatch( \Zend\Mvc\MvcEvent $e )
-	{
-
-		return parent::onDispatch( $e );
-	}
-
     public function indexAction()
     {
         return new ViewModel();

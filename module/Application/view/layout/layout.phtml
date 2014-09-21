@@ -44,14 +44,6 @@
         echo $this->navigation($nav)->menu()->render();
     ?>
     <div class="container myContainer" id="myContainer">
-        <?php
-        if ($this->loggedIn)
-            {
-                ?>
-                <div style="background-color:#F5F5F5;margin-top:5px;padding:2px;padding-left:5px;font-size:17px;">Hallo <a href="<?php echo $this->url('user');?>"><?php echo $identity->username; ?></a></div>
-                <?php
-            }
-        ?>
         <?php echo $this->content; ?>
 
         <div class="myFooter"> Seite im Aufbau! <br> Version: 0.00a </div>

@@ -15,30 +15,20 @@ return array(
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
             'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        'controller' => 'Frontend\Controller\Index',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-            /*'febook' => array(
                  'type'    => 'segment',
                  'options' => array(
-                     'route'    => '/book[/][:action][/:id]',
+                     'route'    => '/backend/login[/][:action][/:id]',
                      'constraints' => array(
                          'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                          'id'     => '[0-9]+',
                      ),
                      'defaults' => array(
-                         'controller' => 'Frontend\Controller\Book',
-                         'action'     => 'index',
+                         'controller' => 'Backend\Controller\Login',
+                         'action'     => 'login',
                      ),
                  ),
-             ),*/
-            'ueberuns' => array(
+            ),
+            /*'ueberuns' => array(
                  'type'    => 'segment',
                  'options' => array(
                      'route'    => '/ueberuns[/][:action][/:id]',
@@ -107,18 +97,19 @@ return array(
                          'action'     => 'index',
                      ),
                  ),
-             ),
+             ),*/
         ),
     ),
     'controllers' => array(
         'invokables' => array(
-            'Frontend\Controller\Index' => 'Frontend\Controller\IndexController',
+            /*'Frontend\Controller\Index' => 'Frontend\Controller\IndexController',
             'Frontend\Controller\Book' => 'Frontend\Controller\BookController',
             'Frontend\Controller\Ueberuns' => 'Frontend\Controller\UeberunsController',
             'Frontend\Controller\Kontakt' => 'Frontend\Controller\KontaktController',
             'Frontend\Controller\Terrain' => 'Frontend\Controller\TerrainController',
             'Frontend\Controller\Impressum' => 'Frontend\Controller\ImpressumController',
-            'Frontend\Controller\Dienstleistungen' => 'Frontend\Controller\DienstleistungenController',
+            'Frontend\Controller\Dienstleistungen' => 'Frontend\Controller\DienstleistungenController',*/
+            'Backend\Controller\Login' => 'Backend\Controller\LoginController',
         ),
     ),
     'view_manager' => array(

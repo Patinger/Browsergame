@@ -2,7 +2,7 @@
 namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /** @ORM\Entity */
-class Terrain extends \Application\Entity\Entity {
+class Minion extends \Application\Entity\Entity {
     /**
     * @ORM\Id
     * @ORM\GeneratedValue(strategy="AUTO")
@@ -11,21 +11,23 @@ class Terrain extends \Application\Entity\Entity {
     protected $id;
 
     /** @ORM\Column(type="integer") */
+    protected $id_user;
+
+    /** @ORM\Column(type="integer") */
     protected $pos_x;
 
     /** @ORM\Column(type="integer") */
     protected $pos_y;
 
-    /** @ORM\Column(type="integer") */
-    protected $type;
-
-    /** @ORM\Column(type="integer") */
-    protected $exploreable;
-
     /* SETTER */
     public function setId($val='')
     {
         $this->id = $val;
+    }
+
+    public function setId_user($val='')
+    {
+        $this->id_user = $val;
     }
 
     public function setPos_x($val='')
@@ -39,20 +41,15 @@ class Terrain extends \Application\Entity\Entity {
         $this->pos_y = $val;
     }
 
-    public function setType($val='')
-    {
-        $this->type = $val;
-    }
-
-    public function setExploreable($val='')
-    {
-        $this->exploreable = $val;
-    }
-
     /* GETTER */
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getId_user()
+    {
+        return $this->id_user;
     }
 
     public function getPos_x()
@@ -63,15 +60,5 @@ class Terrain extends \Application\Entity\Entity {
     public function getPos_y()
     {
         return $this->pos_y;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function getExploreable()
-    {
-        return $this->exploreable;
     }
 }

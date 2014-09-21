@@ -8,14 +8,18 @@ function MyField(x, y) {
     }
 
 	this.createTerrain = function(data){
+		alert(this.x+'_'+this.y);
 		for ( var x = this.x-5; x < this.x+5; x++ ) {
 			for ( var y = this.y-5; y < this.y+5; y++ ) {
 				this.terrain[x] = new Array();
 				var terrain = null;
-				if(data[x+'_'+y]==1) terrain = new this.createTerrainGround(x, y);
-				else if(data[x+'_'+y]==2) {}//wall
+				var type = data[x+'_'+y];
+				if(type==1) terrain = new this.createTerrainGround(x, y);
+				else if(type==2) {}//wall
 				else terrain = new this.createTerrainUnexplored(x, y);
-				this.terrain[x][y] = terrain;
+				this.terrain[x][y] = new Array();
+				this.terrain[x][y]['mesh'] = terrain;
+				this.terrain[x][y]['type'] = type;
 				scene.add( terrain ); //global
 			}
 		}

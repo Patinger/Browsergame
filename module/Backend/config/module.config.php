@@ -15,33 +15,34 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-/*            'backend' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/backend',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Backend\Controller\Book',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/backend/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),*/
-
+            'bhome' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/backend/index[/][:action][/:id]',
+                     'constraints' => array(
+                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                         'id'     => '[0-9]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Backend\Controller\Index',
+                         'action'     => 'index',
+                     ),
+                 ),
+             ),
+            'terrain' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/backend/terrain[/][:action][/:id]',
+                     'constraints' => array(
+                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                         'id'     => '[0-9]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Backend\Controller\Terrain',
+                         'action'     => 'terrainjson',
+                     ),
+                 ),
+             ),
             'login' => array(
                  'type'    => 'segment',
                  'options' => array(
@@ -55,8 +56,8 @@ return array(
                          'action'     => 'login',
                      ),
                  ),
-             ),
-            'adminlogin' => array(
+            ),
+            /*'adminlogin' => array(
                  'type'    => 'segment',
                  'options' => array(
                      'route'    => '/backend/adminlogin[/][:action][/:id]',
@@ -111,7 +112,7 @@ return array(
                          'action'     => 'index',
                      ),
                  ),
-             ),
+             ),*/
             'user' => array(
                  'type'    => 'segment',
                  'options' => array(
@@ -130,15 +131,18 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Backend\Controller\Index' => 'Backend\Controller\IndexController',
+            /*'Backend\Controller\Index' => 'Backend\Controller\IndexController',
             'Backend\Controller\Book' => 'Backend\Controller\BookController',
             'Backend\Controller\Author' => 'Backend\Controller\AuthorController',
             'Backend\Controller\Preise' => 'Backend\Controller\PreiseController',
             'Backend\Controller\Adminlogin' => 'Backend\Controller\AdminloginController',
             'Backend\Controller\Meineautos' => 'Backend\Controller\MeineautosController',
-            'Backend\Controller\User' => 'Backend\Controller\UserController',
             'Backend\Controller\Admin' => 'Backend\Controller\AdminController',
-            'Backend\Controller\Login' => 'Backend\Controller\LoginController'
+            'Backend\Controller\Login' => 'Backend\Controller\LoginController',*/
+            'Backend\Controller\User' => 'Backend\Controller\UserController',
+            'Backend\Controller\Login' => 'Backend\Controller\LoginController',
+            'Backend\Controller\Index' => 'Backend\Controller\IndexController',
+            'Backend\Controller\Terrain' => 'Backend\Controller\TerrainController'
         ),
     ),
     'view_manager' => array(
